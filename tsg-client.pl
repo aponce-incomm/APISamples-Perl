@@ -10,7 +10,7 @@ use Data::Dumper;
 my $url = "";
 my $apikey = "";
 my $timeout = 0;
-my $lang_type = "xml"; #'xml' or 'json'
+my $lang_type = ""; #'xml' or 'json'
 
 #Transaction Info
 my $type = 'SALE';
@@ -167,7 +167,7 @@ if($response->is_success){ #http status 200
     
     my $transaction_response;
     if ($lang_type eq "json") {   # if the chosen language was JSON, then the server will respond back with JSON     
-        $transaction_response = decode_json($response->content())->{transaction}; #parse json
+        $transaction_response = decode_json($response->content()); #parse json
     }else{ # if the chosen language was XML, then the server will respond back with XML
         my $xml = new XML::Simple; #parse xml
         $transaction_response = $xml->XMLin($response->content());
